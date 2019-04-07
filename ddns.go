@@ -1,4 +1,4 @@
-package main
+package main // import "tmthrgd.dev/go/ddns"
 
 import (
 	"bytes"
