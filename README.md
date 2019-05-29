@@ -7,7 +7,7 @@
 Installation is simple and no different to any Go tool. The only requirement is a working [Go](https://golang.org/) install.
 
 ```
-go get tmthrgd.dev/go/ddns
+go get go.tmthrgd.dev/ddns
 ```
 
 ## Usage
