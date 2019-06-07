@@ -20,6 +20,10 @@ ddns host.example.com
 
 You need to set the `CF_API_EMAIL` and `CF_API_KEY` environment variables to your Cloudflare email address and API key which can be found at the bottom of the ["My Account" page](https://dash.cloudflare.com/profile).
 
+## License
+
+[BSD 3-Clause License](LICENSE)
+
 ## Notes
 
 [SeeIP](https://seeip.org/) is used to resolve your systems public IPv4 and IPv6 addresses.
