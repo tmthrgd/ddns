@@ -27,6 +27,7 @@ func must(err error) {
 func main() {
 	silent := flag.Bool("s", false, "suppress output on success")
 	ttl := flag.Int("ttl", 120, "the TTL value to use if creating any new records")
+	ip4only := flag.Bool("4", false, "only set the A record with an IPv4 address")
 	flag.Parse()
 
 	domainName := flag.Arg(0)
@@ -40,8 +41,11 @@ func main() {
 	ip4, err := httpGetIP("https://ip4.seeip.org")
 	must(err)
 
-	ip6, err := httpGetIP("https://ip6.seeip.org")
-	must(err)
+	var ip6 string
+	if !*ip4only {
+		ip6, err = httpGetIP("https://ip6.seeip.org")
+		must(err)
+	}
 
 	api, err := cloudflare.New(os.Getenv("CF_API_KEY"), os.Getenv("CF_API_EMAIL"))
 	must(err)
