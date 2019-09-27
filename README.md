@@ -18,7 +18,9 @@ Usage is simple with the `ddns` command taking the domain name to set.
 ddns host.example.com
 ```
 
-You need to set the `CF_API_EMAIL` and `CF_API_KEY` environment variables to your Cloudflare email address and API key which can be found at the bottom of the ["My Account" page](https://dash.cloudflare.com/profile).
+You need to set the `CF_API_TOKEN` environment variable to a valid Cloudflare API Token with the `#zone:read` and `#dns_records:edit` permissions. Unfortunately access must be provided to all zones even those that will not be updated. You can create a new API Token on the [API Tokens page](https://dash.cloudflare.com/profile/api-tokens) of the Cloudflare dashboard. The token should be created with the following permissions:
+
+![API Token creation page](api-token.png)
 
 ## License
 

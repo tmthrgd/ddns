@@ -47,7 +47,7 @@ func main() {
 		must(err)
 	}
 
-	api, err := cloudflare.New(os.Getenv("CF_API_KEY"), os.Getenv("CF_API_EMAIL"))
+	api, err := cloudflare.NewWithAPIToken(os.Getenv("CF_API_TOKEN"))
 	must(err)
 
 	zoneID, err := api.ZoneIDByName(zoneName)
