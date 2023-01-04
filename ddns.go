@@ -2,6 +2,7 @@ package main // import "go.tmthrgd.dev/ddns"
 
 import (
 	"bytes"
+	"context"
 	"flag"
 	"fmt"
 	"io"
@@ -53,7 +54,7 @@ func main() {
 	zoneID, err := api.ZoneIDByName(zoneName)
 	must(err)
 
-	rrs, err := api.DNSRecords(zoneID, cloudflare.DNSRecord{
+	rrs, _, err := api.ListDNSRecords(context.TODO(), cloudflare.ZoneIdentifier(zoneID), cloudflare.ListDNSRecordsParams{
 		Type: "A,AAAA",
 		Name: domainName,
 	})
@@ -70,9 +71,9 @@ func main() {
 		}
 
 		if r.Content == "" {
-			must(api.DeleteDNSRecord(zoneID, r.ID))
+			must(api.DeleteDNSRecord(context.TODO(), cloudflare.ZoneIdentifier(zoneID), r.ID))
 		} else {
-			must(api.UpdateDNSRecord(zoneID, r.ID, r))
+			must(api.UpdateDNSRecord(context.TODO(), cloudflare.ZoneIdentifier(zoneID), (cloudflare.UpdateDNSRecordParams)(r)))
 		}
 	}
 
@@ -84,7 +85,7 @@ func main() {
 			continue
 		}
 
-		_, err := api.CreateDNSRecord(zoneID, cloudflare.DNSRecord{
+		_, err := api.CreateDNSRecord(context.TODO(), cloudflare.ZoneIdentifier(zoneID), cloudflare.CreateDNSRecordParams{
 			Type:    typ,
 			Name:    domainName,
 			Content: ip,
@@ -97,7 +98,7 @@ func main() {
 		return
 	}
 
-	rrs, err = api.DNSRecords(zoneID, cloudflare.DNSRecord{
+	rrs, _, err = api.ListDNSRecords(context.TODO(), cloudflare.ZoneIdentifier(zoneID), cloudflare.ListDNSRecordsParams{
 		Type: "A,AAAA",
 		Name: domainName,
 	})
